@@ -22,3 +22,5 @@ images/
 
 # OS
 .DS_Store
+
+.claude
