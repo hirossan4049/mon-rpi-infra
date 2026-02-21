@@ -16,5 +16,5 @@ display_output: "HDMI-A-1"
 display_rotation: 0
 
 # Application
-kiosk_app_binary_name: "signage-app"
-kiosk_app_install_dir: "/opt/signage-app"
+kiosk_app_binary_name: "tauri-app"
+kiosk_app_deb_file: "MONSTER_0.1.3_arm64.deb"

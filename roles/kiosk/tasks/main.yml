@@ -1,26 +1,19 @@
 ---
-- name: Install Tauri runtime dependencies
+- name: Copy Tauri application .deb package
+  ansible.builtin.copy:
+    src: "{{ kiosk_app_deb_file }}"
+    dest: "/tmp/{{ kiosk_app_deb_file }}"
+    mode: "0644"
+
+- name: Install Tauri application from .deb package
   ansible.builtin.apt:
-    name:
-      - libwebkit2gtk-4.1-0
-      - libgtk-3-0
+    deb: "/tmp/{{ kiosk_app_deb_file }}"
     state: present
 
-- name: Create application directory
+- name: Clean up .deb package
   ansible.builtin.file:
-    path: "{{ kiosk_app_install_dir }}"
-    state: directory
-    owner: "{{ signage_user }}"
-    group: "{{ signage_user }}"
-    mode: "0755"
-
-- name: Deploy Tauri application binary
-  ansible.builtin.copy:
-    src: "{{ kiosk_app_binary_name }}"
-    dest: "{{ kiosk_app_install_dir }}/{{ kiosk_app_binary_name }}"
-    owner: "{{ signage_user }}"
-    group: "{{ signage_user }}"
-    mode: "0755"
+    path: "/tmp/{{ kiosk_app_deb_file }}"
+    state: absent
 
 - name: Enable desktop autologin
   ansible.builtin.command: raspi-config nonint do_boot_behaviour B4
@@ -48,6 +41,6 @@
 
 - name: Verify application binary is executable
   ansible.builtin.stat:
-    path: "{{ kiosk_app_install_dir }}/{{ kiosk_app_binary_name }}"
+    path: "/usr/bin/{{ kiosk_app_binary_name }}"
   register: app_binary
   failed_when: not app_binary.stat.executable

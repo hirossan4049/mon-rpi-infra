@@ -3,13 +3,21 @@
   hosts: signage
   become: true
   tasks:
-    - name: Deploy Tauri application binary
+    - name: Copy Tauri application .deb package
       ansible.builtin.copy:
-        src: "{{ kiosk_app_binary_name }}"
-        dest: "{{ kiosk_app_install_dir }}/{{ kiosk_app_binary_name }}"
-        owner: "{{ signage_user }}"
-        group: "{{ signage_user }}"
-        mode: "0755"
+        src: "{{ kiosk_app_deb_file }}"
+        dest: "/tmp/{{ kiosk_app_deb_file }}"
+        mode: "0644"
+
+    - name: Install Tauri application from .deb package
+      ansible.builtin.apt:
+        deb: "/tmp/{{ kiosk_app_deb_file }}"
+        state: present
+
+    - name: Clean up .deb package
+      ansible.builtin.file:
+        path: "/tmp/{{ kiosk_app_deb_file }}"
+        state: absent
 
     - name: Reboot to restart application
       ansible.builtin.reboot:

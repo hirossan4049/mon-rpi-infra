@@ -1,11 +1,10 @@
 # Ansible vault password
 .vault_password
 
-# Tauri application binary
+# Tauri application binary / .deb package
 files/tauri-app/*
 !files/tauri-app/.gitkeep
-roles/kiosk/files/*
-!roles/kiosk/files/.gitkeep
+roles/kiosk/files/*.deb
 
 # Ansible retry files
 *.retry

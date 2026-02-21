@@ -11,6 +11,6 @@ wlr-randr --output {{ display_output | default('HDMI-A-1') }} --adaptive-sync en
 
 # Launch signage application with auto-restart
 while true; do
-    {{ kiosk_app_install_dir }}/{{ kiosk_app_binary_name }}
+    /usr/bin/{{ kiosk_app_binary_name }}
     sleep 2
 done &
