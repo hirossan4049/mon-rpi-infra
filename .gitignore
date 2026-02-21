@@ -1,0 +1,24 @@
+# Ansible vault password
+.vault_password
+
+# Tauri application binary
+files/tauri-app/*
+!files/tauri-app/.gitkeep
+roles/kiosk/files/*
+!roles/kiosk/files/.gitkeep
+
+# Ansible retry files
+*.retry
+
+# Python
+__pycache__/
+*.pyc
+
+# SSH private key (public key is tracked)
+keys/signage
+
+# RPi OS images
+images/
+
+# OS
+.DS_Store

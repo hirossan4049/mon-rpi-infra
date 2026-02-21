@@ -1,0 +1,5 @@
+---
+- name: Ensure wlr-randr is installed
+  ansible.builtin.apt:
+    name: wlr-randr
+    state: present

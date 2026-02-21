@@ -1,0 +1,16 @@
+# Managed by Ansible - do not edit manually
+
+# Display rotation
+{% if display_rotation | default(0) | int != 0 %}
+wlr-randr --output {{ display_output | default('HDMI-A-1') }} --transform {{ display_rotation }} &
+sleep 1
+{% endif %}
+
+# Disable screen blanking
+wlr-randr --output {{ display_output | default('HDMI-A-1') }} --adaptive-sync enabled 2>/dev/null &
+
+# Launch signage application with auto-restart
+while true; do
+    {{ kiosk_app_install_dir }}/{{ kiosk_app_binary_name }}
+    sleep 2
+done &

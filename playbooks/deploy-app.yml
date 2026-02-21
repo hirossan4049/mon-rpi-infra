@@ -1,0 +1,16 @@
+---
+- name: Deploy signage application update
+  hosts: signage
+  become: true
+  tasks:
+    - name: Deploy Tauri application binary
+      ansible.builtin.copy:
+        src: "{{ kiosk_app_binary_name }}"
+        dest: "{{ kiosk_app_install_dir }}/{{ kiosk_app_binary_name }}"
+        owner: "{{ signage_user }}"
+        group: "{{ signage_user }}"
+        mode: "0755"
+
+    - name: Reboot to restart application
+      ansible.builtin.reboot:
+        reboot_timeout: 120

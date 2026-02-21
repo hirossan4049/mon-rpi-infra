@@ -1,0 +1,10 @@
+---
+- name: Configure Raspberry Pi digital signage
+  hosts: signage
+  become: true
+  roles:
+    - common
+    - bluetooth_serial
+    - wifi_enterprise
+    - display
+    - kiosk

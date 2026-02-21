@@ -1,0 +1,28 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install base packages
+  ansible.builtin.apt:
+    name:
+      - wlr-randr
+      - bluez
+      - bluez-tools
+      - python3-dbus
+      - rsync
+      - vim
+    state: present
+
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ common_timezone }}"
+  notify: restart cron
+
+- name: Ensure signage user exists
+  ansible.builtin.user:
+    name: "{{ signage_user }}"
+    shell: /bin/bash
+    groups: bluetooth
+    append: true

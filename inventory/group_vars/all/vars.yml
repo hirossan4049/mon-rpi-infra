@@ -1,0 +1,20 @@
+# System
+common_timezone: "Asia/Tokyo"
+common_locale: "ja_JP.UTF-8"
+signage_user: "signage"
+
+# WiFi Enterprise
+wifi_ssid: "CorpWiFi"
+wifi_identity: "{{ vault_wifi_identity }}"
+wifi_password: "{{ vault_wifi_password }}"
+
+# Bluetooth
+bt_discoverable: true
+
+# Display
+display_output: "HDMI-A-1"
+display_rotation: 0
+
+# Application
+kiosk_app_binary_name: "signage-app"
+kiosk_app_install_dir: "/opt/signage-app"

@@ -1,0 +1,13 @@
+[Unit]
+Description=Bluetooth SPP Serial Port Profile Server
+After=bluetooth.service
+Requires=bluetooth.service
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/python3 /usr/local/bin/bt-spp-server.py
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

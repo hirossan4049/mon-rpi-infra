@@ -1,0 +1,16 @@
+---
+- name: Deploy WPA Enterprise connection profile
+  ansible.builtin.template:
+    src: wifi-enterprise.nmconnection.j2
+    dest: "/etc/NetworkManager/system-connections/{{ wifi_ssid }}.nmconnection"
+    owner: root
+    group: root
+    mode: "0600"
+  no_log: true
+  notify: reload networkmanager
+
+- name: Verify connection profile exists
+  ansible.builtin.stat:
+    path: "/etc/NetworkManager/system-connections/{{ wifi_ssid }}.nmconnection"
+  register: nm_conn
+  failed_when: not nm_conn.stat.exists
